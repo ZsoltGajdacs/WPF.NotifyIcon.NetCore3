@@ -3,11 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.28516.95
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotifyIconWpf", "NotifyIconWpf\NotifyIconWpf.csproj", "{D34D80BF-C07D-4472-A996-D077D077FAC2}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleProject", "SampleProject\SampleProject.csproj", "{97CD4CD8-C1B9-4492-89D7-A4F97C025D3E}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WindowlessSample", "WindowlessSample\WindowlessSample.csproj", "{7853825F-97B7-48EF-9EAF-F3496EED1CCD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotifyIconWpf", "NotifyIconWpf\NotifyIconWpf.csproj", "{D34D80BF-C07D-4472-A996-D077D077FAC2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +15,6 @@ Global
 		{D34D80BF-C07D-4472-A996-D077D077FAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D34D80BF-C07D-4472-A996-D077D077FAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D34D80BF-C07D-4472-A996-D077D077FAC2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{97CD4CD8-C1B9-4492-89D7-A4F97C025D3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{97CD4CD8-C1B9-4492-89D7-A4F97C025D3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{97CD4CD8-C1B9-4492-89D7-A4F97C025D3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{97CD4CD8-C1B9-4492-89D7-A4F97C025D3E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7853825F-97B7-48EF-9EAF-F3496EED1CCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7853825F-97B7-48EF-9EAF-F3496EED1CCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7853825F-97B7-48EF-9EAF-F3496EED1CCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7853825F-97B7-48EF-9EAF-F3496EED1CCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
