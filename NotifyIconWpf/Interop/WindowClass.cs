@@ -17,7 +17,7 @@ namespace Hardcodet.Wpf.TaskbarNotification.Interop
     [StructLayout(LayoutKind.Sequential)]
     public struct WindowClass
     {
-        #pragma warning disable 1591
+#pragma warning disable 1591
 
         public uint style;
         public WindowProcedureHandler lpfnWndProc;
@@ -30,6 +30,6 @@ namespace Hardcodet.Wpf.TaskbarNotification.Interop
         [MarshalAs(UnmanagedType.LPWStr)] public string lpszMenuName;
         [MarshalAs(UnmanagedType.LPWStr)] public string lpszClassName;
 
-        #pragma warning restore 1591
+#pragma warning restore 1591
     }
 }

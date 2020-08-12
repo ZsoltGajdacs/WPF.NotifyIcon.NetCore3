@@ -205,8 +205,8 @@ namespace Hardcodet.Wpf.TaskbarNotification.Interop
             if (messageId == taskbarRestartMessageId)
             {
                 //recreate the icon if the taskbar was restarted (e.g. due to Win Explorer shutdown)
-                var listener = TaskbarCreated;
-                if(listener != null) listener();
+                Action listener = TaskbarCreated;
+                if (listener != null) listener();
             }
 
             //forward message
@@ -277,7 +277,7 @@ namespace Hardcodet.Wpf.TaskbarNotification.Interop
                     break;
 
                 case 0x402:
-                    var listener = BalloonToolTipChanged;
+                    Action<bool> listener = BalloonToolTipChanged;
                     if (listener != null) listener(true);
                     break;
 

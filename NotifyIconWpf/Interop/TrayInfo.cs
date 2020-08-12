@@ -3,7 +3,6 @@
 using System;
 using System.Drawing;
 using System.Runtime.InteropServices;
-using System.Windows;
 
 
 namespace Hardcodet.Wpf.TaskbarNotification.Interop
@@ -20,7 +19,7 @@ namespace Hardcodet.Wpf.TaskbarNotification.Interop
         public static Point GetTrayLocation()
         {
             int space = 2;
-            var info = new AppBarInfo();
+            AppBarInfo info = new AppBarInfo();
             info.GetSystemTaskBarPosition();
 
             Rectangle rcWorkArea = info.WorkArea;
@@ -47,7 +46,7 @@ namespace Hardcodet.Wpf.TaskbarNotification.Interop
                 y = rcWorkArea.Bottom;
             }
 
-            return GetDeviceCoordinates(new Point {X = x, Y = y});
+            return GetDeviceCoordinates(new Point { X = x, Y = y });
         }
 
         /// <summary>
@@ -58,7 +57,7 @@ namespace Hardcodet.Wpf.TaskbarNotification.Interop
         /// <returns></returns>
         public static Point GetDeviceCoordinates(Point point)
         {
-          return new Point() { X = (int)(point.X / SystemInfo.DpiXFactor), Y = (int)(point.Y / SystemInfo.DpiYFactor) };
+            return new Point() { X = (int)(point.X / SystemInfo.DpiXFactor), Y = (int)(point.Y / SystemInfo.DpiYFactor) };
         }
     }
 
@@ -90,23 +89,23 @@ namespace Hardcodet.Wpf.TaskbarNotification.Interop
 
         public ScreenEdge Edge
         {
-            get { return (ScreenEdge) m_data.uEdge; }
+            get { return (ScreenEdge)m_data.uEdge; }
         }
 
         public Rectangle WorkArea
         {
-          get { return GetRectangle(m_data.rc); }
+            get { return GetRectangle(m_data.rc); }
         }
 
         private Rectangle GetRectangle(RECT rc)
         {
             return new Rectangle(rc.left, rc.top, rc.right - rc.left, rc.bottom - rc.top);
-        }     
+        }
 
         public void GetPosition(string strClassName, string strWindowName)
         {
             m_data = new APPBARDATA();
-            m_data.cbSize = (UInt32) Marshal.SizeOf(m_data.GetType());
+            m_data.cbSize = (UInt32)Marshal.SizeOf(m_data.GetType());
 
             IntPtr hWnd = FindWindow(strClassName, strWindowName);
 

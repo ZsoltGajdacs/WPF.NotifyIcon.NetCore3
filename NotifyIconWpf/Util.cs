@@ -22,6 +22,7 @@
 // THIS COPYRIGHT NOTICE MAY NOT BE REMOVED FROM THIS FILE
 
 
+using Hardcodet.Wpf.TaskbarNotification.Interop;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -30,7 +31,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Resources;
 using System.Windows.Threading;
-using Hardcodet.Wpf.TaskbarNotification.Interop;
 
 namespace Hardcodet.Wpf.TaskbarNotification
 {
@@ -62,7 +62,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
             isDesignMode =
                 (bool)
                     DependencyPropertyDescriptor.FromProperty(DesignerProperties.IsInDesignModeProperty,
-                        typeof (FrameworkElement))
+                        typeof(FrameworkElement))
                         .Metadata.DefaultValue;
         }
 
@@ -204,7 +204,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
         {
             if (candidates == null) return false;
 
-            foreach (var t in candidates)
+            foreach (T t in candidates)
             {
                 if (value.Equals(t)) return true;
             }

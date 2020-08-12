@@ -22,6 +22,7 @@
 // THIS COPYRIGHT NOTICE MAY NOT BE REMOVED FROM THIS FILE
 
 
+using Hardcodet.Wpf.TaskbarNotification.Interop;
 using System;
 using System.Diagnostics;
 using System.Drawing;
@@ -31,7 +32,6 @@ using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Interop;
 using System.Windows.Threading;
-using Hardcodet.Wpf.TaskbarNotification.Interop;
 using Point = Hardcodet.Wpf.TaskbarNotification.Interop.Point;
 
 
@@ -103,9 +103,9 @@ namespace Hardcodet.Wpf.TaskbarNotification
         {
             get
             {
-                var popup = TrayPopupResolved;
-                var menu = ContextMenu;
-                var balloon = CustomBalloon;
+                Popup popup = TrayPopupResolved;
+                ContextMenu menu = ContextMenu;
+                Popup balloon = CustomBalloon;
 
                 return popup != null && popup.IsOpen ||
                        menu != null && menu.IsOpen ||
@@ -159,8 +159,8 @@ namespace Hardcodet.Wpf.TaskbarNotification
 
         public Point GetPopupTrayPosition()
         {
-          return TrayInfo.GetTrayLocation();
-        }                                              
+            return TrayInfo.GetTrayLocation();
+        }
 
         /// <summary>
         /// Shows a custom control as a tooltip in the tray location.
@@ -177,7 +177,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
             Dispatcher dispatcher = this.GetDispatcher();
             if (!dispatcher.CheckAccess())
             {
-                var action = new Action(() => ShowCustomBalloon(balloon, animation, timeout));
+                Action action = new Action(() => ShowCustomBalloon(balloon, animation, timeout));
                 dispatcher.Invoke(DispatcherPriority.Normal, action);
                 return;
             }
@@ -213,7 +213,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
             //control didn't remove the balloon from its parent popup when
             //if was closed the last time - just make sure it doesn't have
             //a parent that is a popup
-            var parent = LogicalTreeHelper.GetParent(balloon) as Popup;
+            Popup parent = LogicalTreeHelper.GetParent(balloon) as Popup;
             if (parent != null) parent.Child = null;
 
             if (parent != null)
@@ -233,8 +233,8 @@ namespace Hardcodet.Wpf.TaskbarNotification
             popup.Placement = PlacementMode.AbsolutePoint;
             popup.StaysOpen = true;
 
-            
-            Point position = this.CustomPopupPosition != null ? this.CustomPopupPosition() : this.GetPopupTrayPosition();
+
+            Point position = CustomPopupPosition != null ? CustomPopupPosition() : GetPopupTrayPosition();
             popup.HorizontalOffset = position.X - 1;
             popup.VerticalOffset = position.Y - 1;
 
@@ -492,7 +492,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
                     return;
                 }
 
-                var args = RaisePreviewTrayToolTipOpenEvent();
+                RoutedEventArgs args = RaisePreviewTrayToolTipOpenEvent();
                 if (args.Handled) return;
 
                 TrayToolTipResolved.IsOpen = true;
@@ -505,7 +505,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
             }
             else
             {
-                var args = RaisePreviewTrayToolTipCloseEvent();
+                RoutedEventArgs args = RaisePreviewTrayToolTipCloseEvent();
                 if (args.Handled) return;
 
                 //raise attached event first
@@ -669,7 +669,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
 
             //raise preview event no matter whether popup is currently set
             //or not (enables client to set it on demand)
-            var args = RaisePreviewTrayPopupOpenEvent();
+            RoutedEventArgs args = RaisePreviewTrayPopupOpenEvent();
             if (args.Handled) return;
 
             if (TrayPopup != null)
@@ -686,7 +686,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
                 if (TrayPopupResolved.Child != null)
                 {
                     //try to get a handle on the popup itself (via its child)
-                    HwndSource source = (HwndSource) PresentationSource.FromVisual(TrayPopupResolved.Child);
+                    HwndSource source = (HwndSource)PresentationSource.FromVisual(TrayPopupResolved.Child);
                     if (source != null) handle = source.Handle;
                 }
 
@@ -720,7 +720,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
 
             //raise preview event no matter whether context menu is currently set
             //or not (enables client to set it on demand)
-            var args = RaisePreviewTrayContextMenuOpenEvent();
+            RoutedEventArgs args = RaisePreviewTrayContextMenuOpenEvent();
             if (args.Handled) return;
 
             if (ContextMenu != null)
@@ -736,7 +736,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
                 IntPtr handle = IntPtr.Zero;
 
                 //try to get a handle on the context itself
-                HwndSource source = (HwndSource) PresentationSource.FromVisual(ContextMenu);
+                HwndSource source = (HwndSource)PresentationSource.FromVisual(ContextMenu);
                 if (source != null)
                 {
                     handle = source.Handle;
@@ -808,7 +808,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
 
             lock (this)
             {
-                var flags = BalloonFlags.User;
+                BalloonFlags flags = BalloonFlags.User;
 
                 if (largeIcon)
                     flags |= BalloonFlags.LargeIcon;
@@ -886,18 +886,18 @@ namespace Hardcodet.Wpf.TaskbarNotification
         /// </summary>
         private void SetVersion()
         {
-            iconData.VersionOrTimeout = (uint) NotifyIconVersion.Vista;
+            iconData.VersionOrTimeout = (uint)NotifyIconVersion.Vista;
             bool status = WinApi.Shell_NotifyIcon(NotifyCommand.SetVersion, ref iconData);
 
             if (!status)
             {
-                iconData.VersionOrTimeout = (uint) NotifyIconVersion.Win2000;
+                iconData.VersionOrTimeout = (uint)NotifyIconVersion.Win2000;
                 status = Util.WriteIconData(ref iconData, NotifyCommand.SetVersion);
             }
 
             if (!status)
             {
-                iconData.VersionOrTimeout = (uint) NotifyIconVersion.Win95;
+                iconData.VersionOrTimeout = (uint)NotifyIconVersion.Win95;
                 status = Util.WriteIconData(ref iconData, NotifyCommand.SetVersion);
             }
 
@@ -937,7 +937,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
                                                     | IconDataMembers.Tip;
 
                     //write initial configuration
-                    var status = Util.WriteIconData(ref iconData, NotifyCommand.Add, members);
+                    bool status = Util.WriteIconData(ref iconData, NotifyCommand.Add, members);
                     if (!status)
                     {
                         //couldn't create the icon - we can assume this is because explorer is not running (yet!)
@@ -949,7 +949,7 @@ namespace Hardcodet.Wpf.TaskbarNotification
 
                     //set to most recent version
                     SetVersion();
-                    messageSink.Version = (NotifyIconVersion) iconData.VersionOrTimeout;
+                    messageSink.Version = (NotifyIconVersion)iconData.VersionOrTimeout;
 
                     IsTaskbarIconCreated = true;
                 }
